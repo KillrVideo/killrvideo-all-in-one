@@ -1,0 +1,58 @@
+version: '3'
+services:
+
+  web:
+    image: hadesarchitect/killrvideo-web:no-etcd
+    ports:
+      - "3000:3000"
+    depends_on:
+      - dse
+      - backend
+    environment:
+      KILLRVIDEO_LOGGING_LEVEL: debug
+
+  backend:
+    image: hadesarchitect/killrvideo-nodejs:no-etcd
+    depends_on:
+      - dse
+    environment:
+      KILLRVIDEO_LOGGING_LEVEL: debug
+
+  studio:
+    image: killrvideo/killrvideo-studio:2.0.0
+    ports:
+      - "9091:9091"
+    depends_on:
+      - dse
+    environment:
+      DS_LICENSE: accept
+
+  dse:
+    image: datastax/dse-server:6.0.0
+    command: [ -s -g ]
+    ports:
+      - "9042:9042"
+      - "8983:8983"
+      - "8182:8182"
+    environment:
+      DS_LICENSE: accept
+    # Allow DSE to lock memory with mlock
+    cap_add:
+      - IPC_LOCK
+    ulimits:
+      memlock: -1
+
+  dse-config:
+    image: killrvideo/killrvideo-dse-config:2.2.1
+    environment:
+      KILLRVIDEO_SERVICE_DISCOVERY_DISABLED: 'true'
+    depends_on:
+      - dse
+
+  generator:
+    image: hadesarchitect/killrvideo-generator:no-etcd
+    depends_on:
+      - dse
+      - backend
+    environment:
+      KILLRVIDEO_LOGGING_LEVEL: debug
