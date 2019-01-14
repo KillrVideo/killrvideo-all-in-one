@@ -10,9 +10,13 @@ services:
       - backend
     environment:
       KILLRVIDEO_LOGGING_LEVEL: debug
+    labels:
+      kompose.service.type: nodeport
 
   backend:
     image: hadesarchitect/killrvideo-nodejs:no-etcd
+    ports:
+      - "50101:50101"
     depends_on:
       - dse
     environment:
@@ -26,6 +30,8 @@ services:
       - dse
     environment:
       DS_LICENSE: accept
+    labels:
+      kompose.service.type: nodeport
 
   dse:
     image: datastax/dse-server:6.0.0
@@ -48,6 +54,7 @@ services:
       KILLRVIDEO_SERVICE_DISCOVERY_DISABLED: 'true'
     depends_on:
       - dse
+    restart: on-failure
 
   generator:
     image: hadesarchitect/killrvideo-generator:no-etcd
