@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s/
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: backend
+  name: backend
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: backend
+    spec:
+      containers:
+      - env:
+        - name: KILLRVIDEO_LOGGING_LEVEL
+          value: debug
+        image: hadesarchitect/killrvideo-nodejs:no-etcd
+        name: backend
+        ports:
+        - containerPort: 50101
+        resources: {}
+      restartPolicy: Always
+status: {}

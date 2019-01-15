@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s/
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: dse
+  name: dse
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: dse
+    spec:
+      containers:
+      - args:
+        - -s -g
+        env:
+        - name: DS_LICENSE
+          value: accept
+        image: datastax/dse-server:6.0.0
+        name: dse
+        ports:
+        - containerPort: 9042
+        - containerPort: 8983
+        - containerPort: 8182
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - IPC_LOCK
+      restartPolicy: Always
+status: {}

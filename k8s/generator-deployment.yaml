@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s/
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: generator
+  name: generator
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: generator
+    spec:
+      containers:
+      - env:
+        - name: KILLRVIDEO_LOGGING_LEVEL
+          value: debug
+        image: hadesarchitect/killrvideo-generator:no-etcd
+        name: generator
+        resources: {}
+      restartPolicy: Always
+status: {}

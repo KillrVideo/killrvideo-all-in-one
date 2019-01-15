@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s/
+    kompose.service.type: nodeport
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: studio
+  name: studio
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: studio
+    spec:
+      containers:
+      - env:
+        - name: DS_LICENSE
+          value: accept
+        image: killrvideo/killrvideo-studio:2.0.0
+        name: studio
+        ports:
+        - containerPort: 9091
+        resources: {}
+      restartPolicy: Always
+status: {}
