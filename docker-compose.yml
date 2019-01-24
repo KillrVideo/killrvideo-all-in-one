@@ -63,3 +63,10 @@ services:
       - backend
     environment:
       KILLRVIDEO_LOGGING_LEVEL: debug
+
+#  opscenter:
+#    image: datastax/dse-opscenter:6.5.0
+#    ports:
+#    - "8888:8888"
+#    environment:
+#      DS_LICENSE: accept
