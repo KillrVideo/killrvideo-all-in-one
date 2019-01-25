@@ -2,7 +2,7 @@ version: '3'
 services:
 
   web:
-    image: hadesarchitect/killrvideo-web:no-etcd
+    image: killrvideo/killrvideo-web:3.0.0-rc1
     ports:
       - "3000:3000"
     depends_on:
