@@ -23,7 +23,7 @@ services:
       KILLRVIDEO_LOGGING_LEVEL: debug
 
   studio:
-    image: killrvideo/killrvideo-studio:2.0.0
+    image: killrvideo/killrvideo-studio:6.7.0
     ports:
       - "9091:9091"
     depends_on:
