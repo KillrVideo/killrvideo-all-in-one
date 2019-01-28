@@ -34,7 +34,7 @@ services:
       kompose.service.type: nodeport
 
   dse:
-    image: datastax/dse-server:6.0.0
+    image: datastax/dse-server:6.7.0
     command: [ -s -g ]
     ports:
       - "9042:9042"
