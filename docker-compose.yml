@@ -14,7 +14,7 @@ services:
       kompose.service.type: nodeport
 
   backend:
-    image: hadesarchitect/killrvideo-nodejs:no-etcd
+    image: killrvideo/killrvideo-nodejs:3.0.0-rc2
     ports:
       - "50101:50101"
     depends_on:
