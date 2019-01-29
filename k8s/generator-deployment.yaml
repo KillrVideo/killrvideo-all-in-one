@@ -21,7 +21,7 @@ spec:
       - env:
         - name: KILLRVIDEO_LOGGING_LEVEL
           value: debug
-        image: hadesarchitect/killrvideo-generator:no-etcd
+        image: killrvideo/killrvideo-generator:3.0.0-rc4
         name: generator
         resources: {}
       restartPolicy: Always

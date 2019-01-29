@@ -21,7 +21,7 @@ spec:
       - env:
         - name: KILLRVIDEO_LOGGING_LEVEL
           value: debug
-        image: hadesarchitect/killrvideo-nodejs:no-etcd
+        image: killrvideo/killrvideo-nodejs:3.0.0-rc2
         name: backend
         ports:
         - containerPort: 50101

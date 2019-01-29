@@ -22,7 +22,7 @@ spec:
       - env:
         - name: KILLRVIDEO_LOGGING_LEVEL
           value: debug
-        image: hadesarchitect/killrvideo-web:no-etcd
+        image: killrvideo/killrvideo-web:3.0.0-rc1
         name: web
         ports:
         - containerPort: 3000

@@ -22,7 +22,7 @@ spec:
       - env:
         - name: DS_LICENSE
           value: accept
-        image: killrvideo/killrvideo-studio:2.0.0
+        image: datastax/dse-studio:6.7.0
         name: studio
         ports:
         - containerPort: 9091

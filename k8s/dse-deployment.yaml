@@ -23,7 +23,7 @@ spec:
         env:
         - name: DS_LICENSE
           value: accept
-        image: datastax/dse-server:6.0.0
+        image: datastax/dse-server:6.7.0
         name: dse
         ports:
         - containerPort: 9042
