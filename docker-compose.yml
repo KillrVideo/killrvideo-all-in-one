@@ -49,7 +49,7 @@ services:
       memlock: -1
 
   dse-config:
-    image: killrvideo/killrvideo-dse-config:2.2.1
+    image: killrvideo/killrvideo-dse-config:2.2.2-rc2
     environment:
       KILLRVIDEO_SERVICE_DISCOVERY_DISABLED: 'true'
     depends_on:
