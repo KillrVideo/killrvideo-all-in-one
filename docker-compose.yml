@@ -1,72 +1,62 @@
 version: '3'
 services:
 
-  web:
-    image: killrvideo/killrvideo-web:3.0.0-rc1
+  web: # Web Interface
+    image: killrvideo/killrvideo-web:3.0.0-rc1 
     ports:
-      - "3000:3000"
+      - "3000:3000" # Exposes port to be available externally
     depends_on:
-      - dse
-      - backend
+      - backend # Needs Backend to be running
     environment:
-      KILLRVIDEO_LOGGING_LEVEL: debug
+      KILLRVIDEO_LOGGING_LEVEL: debug # More logging
     labels:
-      kompose.service.type: nodeport
+      kompose.service.type: nodeport # Adds a label for Kompose to expose service externally
 
-  backend:
+  backend: # KillrVideo Backend 
     image: killrvideo/killrvideo-nodejs:3.0.0-rc2
     ports:
-      - "50101:50101"
+      - "50101:50101" # Exposes port to be available. Kompose tool needs that to create a k8s service and make backend available for other services.
     depends_on:
-      - dse
+      - dse  # Needs DSE to be running
     environment:
-      KILLRVIDEO_LOGGING_LEVEL: debug
+      KILLRVIDEO_LOGGING_LEVEL: debug # More logging
 
-  studio:
+  studio:  # Datastax Studio provides convenient web interface to work directly with the Apache Cassandra or DataStax Enterprise
     image: datastax/dse-studio:6.7.0
     ports:
-      - "9091:9091"
+      - "9091:9091" # Exposes port to be available externally
     depends_on:
-      - dse
+      - dse # Needs DSE to be running
     environment:
       DS_LICENSE: accept
     labels:
-      kompose.service.type: nodeport
+      kompose.service.type: nodeport # Adds a label for Kompose to expose service externally
 
-  dse:
+  dse: # DataStax Enterprise Database
     image: datastax/dse-server:6.7.0
-    command: [ -s -g ]
-    ports:
-      - "9042:9042"
-      - "8983:8983"
-      - "8182:8182"
+    command: [ -s -g ] # Run with Search and Graph capabilities enabled
+    ports: # Exposes ports to be available. Kompose tool needs that to create a k8s service and make backend available for other services.
+      - "9042:9042" # Exposes DSE port
+      - "8983:8983" # Exposes DSE Search port
+      - "8182:8182" # Exposes DSE Graph port
     environment:
-      DS_LICENSE: accept
-    # Allow DSE to lock memory with mlock
+      DS_LICENSE: accept # Accept licence on start
     cap_add:
-      - IPC_LOCK
+      - IPC_LOCK # Allow DSE to lock memory with mlock
     ulimits:
       memlock: -1
 
-  dse-config:
+  dse-config: # One-Time Bootstrap Container, configures DSE to have required keyspaces etc.
     image: killrvideo/killrvideo-dse-config:2.2.2-rc2
     environment:
-      KILLRVIDEO_SERVICE_DISCOVERY_DISABLED: 'true'
+      KILLRVIDEO_SERVICE_DISCOVERY_DISABLED: 'true' # Backward Compatibility Requirement
     depends_on:
-      - dse
-    restart: on-failure
+      - dse # Needs DSE to be running
+    restart: on-failure # Kompose needs that to create dse-config as a pod, not a deployment. DSE-Config deployment is not needed as we run it only once.
 
-  generator:
+  generator: # Sample Data Generator, imitates behaviour of users on the killrVideo website. Adds comments and rates videos, upload new videos and so on.
     image: killrvideo/killrvideo-generator:3.0.0-rc4
     depends_on:
-      - dse
-      - backend
+      - backend # Needs Backend to be running
     environment:
-      KILLRVIDEO_LOGGING_LEVEL: debug
-
-#  opscenter:
-#    image: datastax/dse-opscenter:6.5.0
-#    ports:
-#    - "8888:8888"
-#    environment:
-#      DS_LICENSE: accept
+      KILLRVIDEO_LOGGING_LEVEL: debug # More logging
