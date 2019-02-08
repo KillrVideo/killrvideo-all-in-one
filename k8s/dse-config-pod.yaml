@@ -10,7 +10,7 @@ spec:
   - env:
     - name: KILLRVIDEO_SERVICE_DISCOVERY_DISABLED
       value: "true"
-    image: killrvideo/killrvideo-dse-config:2.2.1
+    image: killrvideo/killrvideo-dse-config:2.2.2-rc2
     name: dse-config
     resources: {}
   restartPolicy: OnFailure
