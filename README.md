@@ -2,7 +2,7 @@
 
 The easiest way to setup & launch KillrVideo.com right at you place! Want to learn how to work with Apache Cassandra or Datastax Enterprise? That's the right place to start!
 
-## Setting up the Environment
+## Docker-Compose Setup
 
 You need to have docker and docker-compose installed in order to launch the application. Experience with docker is recommended but not required.
 
