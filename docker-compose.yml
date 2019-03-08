@@ -1,16 +1,16 @@
 version: '3'
 services:
 
-#  web: # Web Interface
-#    image: killrvideo/killrvideo-web:3.0.0-rc1 
-#    ports:
-#      - "3000:3000" # Exposes port to be available externally
-#    depends_on:
-#      - backend # Needs Backend to be running
-#    environment:
-#      KILLRVIDEO_LOGGING_LEVEL: debug # More logging
-#    labels:
-#      kompose.service.type: nodeport # Adds a label for Kompose to expose service externally
+  web: # Web Interface
+    image: killrvideo/killrvideo-web:3.0.0-rc1 
+    ports:
+      - "3000:3000" # Exposes port to be available externally
+    depends_on:
+      - backend # Needs Backend to be running
+    environment:
+      KILLRVIDEO_LOGGING_LEVEL: debug # More logging
+    labels:
+      kompose.service.type: nodeport # Adds a label for Kompose to expose service externally
 
   backend: # KillrVideo Backend 
     image: killrvideo/killrvideo-nodejs:3.0.0-rc2
@@ -40,6 +40,9 @@ services:
       - "9042:9042" # Exposes DSE port
       - "8983:8983" # Exposes DSE Search port
       - "8182:8182" # Exposes DSE Graph port
+    volumes:
+      # push promethus config to node for insights support
+      - "./prometheus/prometheus.conf:/opt/dse/resources/dse/collectd/etc/collectd/prometheus.conf"
     environment:
       DS_LICENSE: accept # Accept licence on start
     cap_add:
@@ -73,7 +76,7 @@ services:
   grafana:
     image: "grafana/grafana:5.3.2"
     ports:
-      - "3000:3000"
+      - "3100:3000"
     environment:
       GF_SECURITY_ADMIN_PASSWORD: admin
       GF_AUTH_ANONYMOUS_ENABLED: "true"
@@ -83,5 +86,6 @@ services:
       - "./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml"
       - "./grafana/dashboards:/var/lib/grafana/dashboards:ro"
 volumes:
+  dse:
   grafana:
   prometheus:
