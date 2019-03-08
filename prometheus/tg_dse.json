@@ -1,0 +1,10 @@
+[
+  {
+    "targets": [ 
+      "localhost:9103" 
+    ],
+    "labels": {
+      "cluster": "test_cluster"
+    }
+  }
+]
