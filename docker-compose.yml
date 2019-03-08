@@ -42,7 +42,7 @@ services:
       - "8182:8182" # Exposes DSE Graph port
     volumes:
       # push promethus config to node for insights support
-      - "./prometheus/prometheus.conf:/opt/dse/resources/dse/collectd/etc/collectd/prometheus.conf"
+      - "./dse/prometheus.conf:/opt/dse/resources/dse/collectd/etc/collectd/prometheus.conf"
     environment:
       DS_LICENSE: accept # Accept licence on start
     cap_add:
