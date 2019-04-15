@@ -13,7 +13,7 @@ services:
       kompose.service.type: nodeport # Adds a label for Kompose to expose service externally
 
   backend: # KillrVideo Backend 
-    image: killrvideo/killrvideo-nodejs:3.0.0-rc2
+    image: killrvideo/killrvideo-java:3.0.0-alpha2
     ports:
       - "50101:50101" # Exposes port to be available. Kompose tool needs that to create a k8s service and make backend available for other services.
     depends_on:
