@@ -13,7 +13,7 @@ services:
       kompose.service.type: nodeport # Adds a label for Kompose to expose service externally
 
   backend: # KillrVideo Backend 
-    image: killrvideo/killrvideo-nodejs:3.0.0-rc2
+    image: killrvideo/killrvideo-java:3.0.0-alpha2
     ports:
       - "50101:50101" # Exposes port to be available. Kompose tool needs that to create a k8s service and make backend available for other services.
     depends_on:
@@ -47,9 +47,7 @@ services:
       memlock: -1
 
   dse-config: # One-Time Bootstrap Container, configures DSE to have required keyspaces etc.
-    image: killrvideo/killrvideo-dse-config:2.2.2-rc2
-    environment:
-      KILLRVIDEO_SERVICE_DISCOVERY_DISABLED: 'true' # Backward Compatibility Requirement
+    image: killrvideo/killrvideo-dse-config:3.0.0-rc1
     depends_on:
       - dse # Needs DSE to be running
     restart: on-failure # Kompose needs that to create dse-config as a pod, not a deployment. DSE-Config deployment is not needed as we run it only once.
