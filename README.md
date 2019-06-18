@@ -7,7 +7,7 @@ The easiest way to setup and launch KillrVideo - using Docker on your own machin
 You need to have Docker and docker-compose installed in order to launch the application. Experience with Docker is recommended but not required.
 
 ```
-git clone git@github.com:KillrVideo/all-in-one.git killrvideo-all-in-one
+git clone https://github.com/KillrVideo/killrvideo-all-in-one.git killrvideo-all-in-one
 cd killrvideo-all-in-one
 docker-compose up -d
 ```
