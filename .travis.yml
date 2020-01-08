@@ -1,0 +1,28 @@
+language: generic
+services:
+  - docker
+
+# Build the docker image
+script:
+- travis_fold start docker_compose
+- docker-compose up -d
+- sleep 300 # I don't like it too
+- docker-compose logs dse-config 
+- travis_fold end docker_compose
+- travis_fold start test
+- docker run --network killrvideo-all-in-one_default killrvideo/killrvideo-integration-tests
+- travis_fold end test
+
+# If successful, see if we need to publish also
+after_success: ~
+# - "[ \"$TRAVIS_EVENT_TYPE\" = \"cron\" ] && { echo \"Ignore nightly builds\"; travis_terminate 0; }"
+# - test -z $TRAVIS_TAG && { echo "Ignore non-tagged builds"; travis_terminate 0; }
+# - docker tag ${TRAVIS_COMMIT} killrvideo/killrvideo-python:${TRAVIS_TAG}
+# - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+# - docker push killrvideo/killrvideo-python:${TRAVIS_TAG}
+# - "[ \"$(git tag --sort=-v:refname | grep -P \"^\\d+.\\d+.\\d+$\" | head -n1)\" == \"$TRAVIS_TAG\" ] &&  { docker tag ${TRAVIS_COMMIT} killrvideo/killrvideo-python:latest; docker push killrvideo/killrvideo-python:latest; }"
+
+after_failure: ~
+# - travis_fold start logs
+# - docker-compose -f docker-compose.ci.yml logs dse-config backend
+# - travis_fold end logs
