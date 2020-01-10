@@ -7,7 +7,8 @@ script:
 - travis_fold start docker_compose
 - docker-compose up -d
 - sleep 300 # I don't like it too
-- docker-compose logs dse-config 
+- docker-compose ps
+- docker-compose exec backend echo 'Still alive!' || { echo "Backend is down"; exit 1; }
 - travis_fold end docker_compose
 - travis_fold start test
 - docker run --network killrvideo-all-in-one_default killrvideo/killrvideo-integration-tests
