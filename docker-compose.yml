@@ -59,4 +59,4 @@ services:
       - backend # Needs Backend to be running
     environment:
       KILLRVIDEO_LOGGING_LEVEL: debug # More logging
-      KILLRVIDEO_YOUTUBE_API_KEY: AIzaSyBZEN4d57YUWxZDh6NHdrO3q6BS7zsdamE
+      KILLRVIDEO_YOUTUBE_API_KEY: AIzaSyAFBSo98gf7I2-ipLx7K7beE2hAG5GTVeU
