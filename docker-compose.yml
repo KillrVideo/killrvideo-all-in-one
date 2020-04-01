@@ -2,7 +2,7 @@ version: '3'
 services:
 
   web: # Web Interface
-    image: killrvideo/killrvideo-web:3.0.1
+    image: killrvideo/killrvideo-web:3
     ports:
       - "3000:3000" # Exposes port to be available externally
     depends_on:
@@ -48,7 +48,7 @@ services:
       memlock: -1
 
   dse-config: # One-Time Bootstrap Container, configures DSE to have required keyspaces etc.
-    image: killrvideo/killrvideo-dse-config:3.0.0
+    image: killrvideo/killrvideo-dse-config:3
     depends_on:
       - dse # Needs DSE to be running
     restart: on-failure # Kompose needs that to create dse-config as a pod, not a deployment. DSE-Config deployment is not needed as we run it only once.
