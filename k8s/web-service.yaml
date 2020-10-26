@@ -4,7 +4,7 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -o ./k8s/
     kompose.service.type: nodeport
-    kompose.version: 1.17.0 (a74acad)
+    kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
     io.kompose.service: web

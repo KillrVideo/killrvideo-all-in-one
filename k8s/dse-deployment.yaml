@@ -1,18 +1,24 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
     kompose.cmd: kompose convert -o ./k8s/
-    kompose.version: 1.17.0 (a74acad)
+    kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
     io.kompose.service: dse
   name: dse
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: dse
   strategy: {}
   template:
     metadata:
+      annotations:
+        kompose.cmd: kompose convert -o ./k8s/
+        kompose.version: 1.21.0 (992df58d8)
       creationTimestamp: null
       labels:
         io.kompose.service: dse
@@ -24,6 +30,7 @@ spec:
         - name: DS_LICENSE
           value: accept
         image: datastax/dse-server:6.7.0
+        imagePullPolicy: ""
         name: dse
         ports:
         - containerPort: 9042
@@ -35,4 +42,6 @@ spec:
             add:
             - IPC_LOCK
       restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
 status: {}
