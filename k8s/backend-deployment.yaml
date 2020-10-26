@@ -19,9 +19,11 @@ spec:
     spec:
       containers:
       - env:
+        - name: KILLRVIDEO_DSE_CONTACT_POINTS
+          value: dse
         - name: KILLRVIDEO_LOGGING_LEVEL
           value: debug
-        image: killrvideo/killrvideo-java:3.0.0-alpha2
+        image: killrvideo/killrvideo-java:3.0.1
         name: backend
         ports:
         - containerPort: 50101

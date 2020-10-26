@@ -22,7 +22,7 @@ spec:
       - env:
         - name: KILLRVIDEO_LOGGING_LEVEL
           value: debug
-        image: killrvideo/killrvideo-web:3.0.0-rc1
+        image: killrvideo/killrvideo-web:3
         name: web
         ports:
         - containerPort: 3000

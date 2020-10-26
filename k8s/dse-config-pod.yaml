@@ -7,7 +7,7 @@ metadata:
   name: dse-config
 spec:
   containers:
-  - image: killrvideo/killrvideo-dse-config:3.0.0-rc1
+  - image: killrvideo/killrvideo-dse-config:3
     name: dse-config
     resources: {}
   restartPolicy: OnFailure
